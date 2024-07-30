@@ -1,0 +1,46 @@
+<!-- templates/components/navbar.html -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<nav class="bg-gradient-to-r from-gray-800 to-black p-4 shadow-lg">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="text-white font-bold text-xl flex items-center space-x-2">
+      <i class="fas fa-calendar-alt"></i>
+      <a href="{% url 'horarios:horario_list' %}">Mis Horarios</a>
+    </div>
+    <ul class="flex space-x-6 items-center">
+      <li>
+        <a href="{% url 'horarios:horario_list' %}" class="text-white font-semibold hover:text-gray-400 transition duration-200 flex items-center space-x-1">
+          <i class="fas fa-clock"></i>
+          <span>Horarios</span>
+        </a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+        <a href="{% url 'horarios:perfil' %}" class="text-white font-semibold hover:text-gray-400 transition duration-200 flex items-center space-x-1">
+          <i class="fas fa-user"></i>
+          <span>Perfil</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'account_logout' %}" class="text-white font-semibold hover:text-gray-400 transition duration-200 flex items-center space-x-1">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+      {% else %}
+      <li>
+        <a href="{% url 'account_login' %}" class="text-white font-semibold hover:text-gray-400 transition duration-200 flex items-center space-x-1">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Login</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'account_signup' %}" class="text-white font-semibold hover:text-gray-400 transition duration-200 flex items-center space-x-1">
+          <i class="fas fa-user-plus"></i>
+          <span>Signup</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

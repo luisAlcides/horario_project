@@ -1,0 +1,19 @@
+<!-- horarios/templates/horarios/horario_form.html -->
+{% extends "base.html" %} {% block content %}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+  <h2 class="text-2xl font-bold mb-4">
+    {% if form.instance.pk %}Editar{% else %}Crear{% endif %} Horario
+  </h2>
+  <form method="POST" class="space-y-4">
+    {% csrf_token %} {{ form.as_p }}
+    <div class="mt-6 text-right">
+      <button
+        type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

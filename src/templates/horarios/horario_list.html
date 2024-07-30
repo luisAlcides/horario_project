@@ -1,0 +1,64 @@
+<!-- horarios/templates/horarios/horario_list.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-600">Lista de Horarios</h1>
+    {% if user.is_authenticated %}
+    <div class="mb-6 flex justify-end space-x-4">
+        <a href="{% url 'horarios:horario_create' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 flex items-center space-x-2">
+            <i class="fas fa-plus"></i>
+            <span>Nuevo Horario</span>
+        </a>
+        <a href="{% url 'horarios:horario_bulk_delete' %}" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200 flex items-center space-x-2">
+            <i class="fas fa-trash-alt"></i>
+            <span>Eliminar Horarios</span>
+        </a>
+        <a href="{% url 'horarios:horario_bulk_update' %}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 flex items-center space-x-2">
+            <i class="fas fa-edit"></i>
+            <span>Actualizar Horarios</span>
+        </a>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border rounded-lg overflow-hidden">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="py-3 px-4 border-b text-left">Nombre</th>
+                    {% for dia in dias_semana %}
+                    <th class="py-3 px-4 border-b text-left">{{ dia }}</th>
+                    {% endfor %}
+                    <th class="py-3 px-4 border-b text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nombre, horarios_dia in horarios.items %}
+                <tr class="hover:bg-gray-50 transition duration-200">
+                    <td class="border px-4 py-2">{{ nombre }}</td>
+                    {% for dia in dias_semana %}
+                    <td class="border px-4 py-2">
+                        {% for horario in horarios_dia %}
+                            {% if horario.dia_semana == dia %}
+                                {{ horario.hora_inicio }} - {{ horario.hora_fin }}<br>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    {% endfor %}
+                    <td class="border px-4 py-2 text-center">
+                        {% if horarios_dia %}
+                            <a href="{% url 'horarios:horario_update' horarios_dia.0.pk %}" class="text-blue-600 hover:underline mr-2">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a href="{% url 'horarios:horario_delete' horarios_dia.0.pk %}" class="text-red-600 hover:underline">
+                                <i class="fas fa-trash-alt"></i> Eliminar
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-center">Debes <a href="{% url 'account_login' %}" class="text-blue-600 hover:underline">iniciar sesión</a> para ver y gestionar los horarios.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+<!-- horarios/templates/horarios/horario_confirm_delete.html -->
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>¿Estás seguro de que deseas eliminar este Horario?</h1>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="Confirmar" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"/>
+</form>
+<a href="{% url 'horarios:horario_list' %}" class="text-blue-600 hover:underline">Cancelar</a>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+<!-- horarios/templates/horarios/horario_bulk_delete.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+    <h1 class="text-2xl font-bold mb-4">Eliminar Horarios</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">Eliminar</button>
+    </form>
+</div>
+{% endblock %}
